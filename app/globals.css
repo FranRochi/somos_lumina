@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;       
+  --foreground: #000000;       /* texto principal en blanco */
+  --primary: #11009e;          /* violeta oscuro fuerte */
+  --secondary: #5047e4;        /* violeta más claro */
+  --accent: #deb9e2;           /* rosa lavanda claro */
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Asegura que todos los elementos respeten el box-sizing */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
