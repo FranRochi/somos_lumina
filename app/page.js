@@ -1,12 +1,34 @@
-// page.js (completo, actualizado)
 "use client";
 
 import { motion } from "framer-motion";
 import CarouselWithLema from "@/components/CarouselWithLema";
 import Circulos from "@/components/Circulos";
 import { MessageCircle, Globe, Wrench, ServerCog, LineChart, Quote, PenTool } from "lucide-react";
+import { useEffect } from "react";
 
 export default function Home() {
+  useEffect(() => {
+    const form = document.getElementById("contact-form");
+    const successMessage = document.getElementById("success-message");
+
+    form?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      try {
+        await fetch("https://formsubmit.co/ajax/lumina@somoslumina.com.ar", {
+          method: "POST",
+          body: formData,
+        });
+
+        form.reset();
+        successMessage.classList.remove("hidden");
+      } catch (error) {
+        console.error("Error al enviar:", error);
+      }
+    });
+  }, []);
+
   return (
     <main className="min-h-screen bg-background text-foreground font-sans">
       {/* HEADER */}
@@ -69,9 +91,9 @@ export default function Home() {
 
       {/* SERVICIOS */}
       <section id="servicios" className="py-24 px-4 max-w-6xl mx-auto text-center">
-        <h3 className="text-4xl font-extrabold text-primary  mb-12">Servicios</h3>
+        <h3 className="text-4xl font-extrabold text-primary mb-12">Servicios</h3>
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-3 text-left">
-          {[ 
+          {[
             { icon: <Globe className="text-primary w-6 h-6 mb-2" />, title: "Sitios web a medida", desc: "Landing Pages, Portfolios, Blogs y sitios para eventos." },
             { icon: <Wrench className="text-primary w-6 h-6 mb-2" />, title: "Mantenimiento y actualización", desc: "Revisamos y actualizamos tu web para que todo funcione perfecto." },
             { icon: <ServerCog className="text-primary w-6 h-6 mb-2" />, title: "Implementación técnica", desc: "Configuración de dominios, servidores y SEO básico." },
@@ -107,13 +129,11 @@ export default function Home() {
         </div>
       </section>
 
-
       {/* CONTACTO */}
       <section id="contacto" className="py-20 px-4 max-w-4xl mx-auto">
         <h3 className="text-3xl font-semibold text-primary mb-6">Contacto</h3>
 
-        {/* Formulario */}
-        <form action="/api/contact" method="POST" className="space-y-6">
+        <form id="contact-form" className="space-y-6">
           <div>
             <label className="block text-foreground mb-1">Nombre</label>
             <input
@@ -149,7 +169,10 @@ export default function Home() {
           </button>
         </form>
 
-        {/* WhatsApp */}
+        <div id="success-message" className="hidden text-green-600 font-semibold mt-6 text-center">
+          ¡Gracias! Tu mensaje fue enviado con éxito.
+        </div>
+
         <div className="mt-8 flex justify-center">
           <a
             href="https://wa.me/5492214197236?text=Hola%20Lúmina,%20quiero%20una%20web!"
@@ -166,6 +189,7 @@ export default function Home() {
       {/* FOOTER */}
       <footer className="py-8 text-center text-sm text-foreground/50 border-t border-secondary mt-10">
         <p>© {new Date().getFullYear()} Lúmina - Francisco & Rosario</p>
+        <p className="mt-1">Mail: <a href="mailto:lumina@somoslumina.com.ar" className="underline">lumina@somoslumina.com.ar</a></p>
         <p className="mt-2">Diseño y desarrollo con <span className="text-accent">❤</span> en Argentina</p>
       </footer>
     </main>
