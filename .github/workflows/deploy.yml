@@ -27,8 +27,4 @@ jobs:
         run: npm run build
 
       - name: Reiniciar con PM2
-        run: |
-          pm2 describe lumina > /dev/null 2>&1 \
-            && pm2 restart lumina \
-            || pm2 start npm --name lumina -- start
-          pm2 save
+        run: sudo pm2 restart lumina
