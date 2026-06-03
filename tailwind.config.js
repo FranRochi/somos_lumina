@@ -13,6 +13,10 @@ module.exports = {
         secondary: "var(--secondary)",
         accent: "var(--accent)",
       },
+      fontFamily: {
+        heavitas:['Heavitas', 'sans-serif'],
+        nunito: ['Nunito', 'sans-serif'],
+      }
     },
   },
   plugins: [],
